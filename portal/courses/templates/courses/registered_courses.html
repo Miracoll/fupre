@@ -1,0 +1,85 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Course Registration</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card sales-card">
+                      <table class="table table-bordered">
+                        <tr>
+                          <td colspan="2">
+                            <div class="row">
+                              <div class="col-3">NAME</div>
+                              <div class="col-8">{{student.last_name}} {{student.first_name}} {{student.other_name}}</div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="row">
+                              <div class="col-3 font-weight-bold">REG NUMBER</div>
+                              <div class="col-8">{{student.registration_num}}</div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-4 font-weight-bold">LEVEL</div>
+                              <div class="col-8">{{student.level}}</div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>{{student.dept.name}}</td>
+                          <td>{{student.faculty.name}}</td>
+                        </tr>
+                        <tr>
+
+                        </tr>
+                      </table>
+                      <table class="table">
+                        <tr>
+                          <th>S/N</th>
+                          <th>Course Code</th>
+                          <th>Course Title</th>
+                          <th>Unit</th>
+                        </tr>
+                        {% for course in courses %}
+                        <tr>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{course.course.course_code}}</td>
+                          <td>{{course.course.course_title}}</td>
+                          <td>{{course.course.credit_unit}}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                          <td>Maximum credit unit</td>
+                          <td colspan="3">{{setup.max_credit_unit}}</td>
+                        </tr>
+                        <tr>
+                          <td>Credit unit loaded</td>
+                          <td colspan="3">{{unit.credit_unit__sum}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <a href="" class="btn btn-primary w-100 d-print-none" role="button" onclick="window.print()">Print</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock content %}
