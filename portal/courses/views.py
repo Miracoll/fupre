@@ -83,7 +83,7 @@ def print_courses(request):
         student=user.username, semester_registered=semester, session_registered=session, lock=True
     ).aggregate(Sum('credit_unit'))
     course_setup = Department_setup.objects.get(dept=student.dept, level=student.level, semester=semester)
-    courses = Registered.objects.filter(student=user.username, semester_registered=semester, session_registered=session)
+    courses = Registered.objects.filter(student=user.username, semester_registered=semester, session_registered=session, lock=True)
     context = {
         'courses':courses,
         'student':student,

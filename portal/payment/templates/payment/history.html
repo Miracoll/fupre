@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="pagetitle d-print-none">
+    <h1>Payment</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Print Invoice</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card sales-card">
+                        <div class="table-responsive-sm">
+                            <table class="table table-bordered">
+                                {% if payment %}
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>RRR</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>Date/Time generated</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for payment in payment %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{payment.rrr}}</td>
+                                    <td>NGN {{payment.payment.amount | intcomma}}</td>
+                                    <td>{{payment.payment.payment_type}}</td>
+                                    <td>{{payment.generated_on}}</td>
+                                    {% if payment.status %}
+                                    <td class="text-success">Paid</td>
+                                    {% else %}
+                                    <td class="text-danger">Not paid</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <p class="text-center text-danger">No payment history</p>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock content %}

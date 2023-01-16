@@ -41,7 +41,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center d-print-none">
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
@@ -129,7 +129,7 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar d-print-none">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -171,8 +171,13 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Form Validation</span>
+            <a href="{% url 'payment' %}">
+              <i class="bi bi-circle"></i><span>Make Payment</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'history' %}">
+              <i class="bi bi-circle"></i><span>Transaction History</span>
             </a>
           </li>
         </ul>
