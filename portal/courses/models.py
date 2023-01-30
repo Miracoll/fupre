@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import uuid
-from configuration.models import Department, Semester, Level, Session
+from configuration.models import Department, Semester, Session
 
 # Create your models here.
 

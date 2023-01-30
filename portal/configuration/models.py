@@ -23,6 +23,7 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='passport', default='passport.jpg', blank=True, null=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
     lock_reason = models.TextField(max_length=2000, blank=True, null=True)
+    defer = models.BooleanField(default=False)
 
 class Faculty(models.Model):
     name = models.CharField(max_length=255)
@@ -84,3 +85,11 @@ class Level(models.Model):
 
     class Meta:
         ordering = ['level']
+
+class Grade(models.Model):
+    grade = models.CharField(max_length=5)
+    description = models.CharField(max_length=20)
+    max_score = models.IntegerField()
+    min_score = models.IntegerField()
+    point = models.IntegerField()
+    ref = models.UUIDField(default=uuid.uuid4, editable=False)

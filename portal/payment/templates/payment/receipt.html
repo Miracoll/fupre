@@ -1,0 +1,65 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="pagetitle d-print-none">
+    <h1>Payment</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Print Receipt</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card sales-card">
+                      <div>
+                          <table class="table table-bordered">
+                            <tr>
+                                <th>Name</th>
+                                <td>{{payment.student.last_name}} {{payment.student.first_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Registration Number</th>
+                                <td>{{payment.student.registration_num}}</td>
+                            </tr>
+                            <tr>
+                                <th>Level</th>
+                                <td>{{payment.student.level}}</td>
+                            </tr>
+                            <tr>
+                                <th>Amount</th>
+                                <td>NGN {{payment.payment.amount | intcomma}}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>Payment for {{payment.payment.payment_type}}</td>
+                            </tr>
+                            <tr>
+                                <th>RRR</th>
+                                <td>{{payment.rrr}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date Paid</th>
+                                <td>{{payment.generated_on}}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td class="text-success"><strong>PAID</strong></td>
+                            </tr>
+                          </table>
+                      </div>
+                      <button class="btn btn-outline-secondary d-print-none my-2" onclick="window.print()">Print receipt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock content %}

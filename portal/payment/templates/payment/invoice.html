@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load humanize %}
 {% block content %}
 <div class="pagetitle d-print-none">
     <h1>Payment</h1>
@@ -34,7 +35,7 @@
                             </tr>
                             <tr>
                                 <th>Amount</th>
-                                <td>{{payment.payment.amount}}</td>
+                                <td>NGN {{payment.payment.amount | intcomma}}</td>
                             </tr>
                             <tr>
                                 <th>Description</th>
@@ -50,7 +51,7 @@
                             </tr>
                           </table>
                       </div>
-                      <a href="https://login.remita.net/remita/onepage/biller/{{payment.rrr}}/payment.spa" class="btn btn-danger d-print-none my-2" target="_blank">Pay now</a>
+                      <button type="button" onclick="makePayment()" class="btn btn-danger d-print-none my-2" target="_blank">Pay now</button>
                       <button class="btn btn-outline-secondary d-print-none my-2" onclick="window.print()">Print invoice</button>
                     </div>
                 </div>
@@ -59,3 +60,36 @@
     </div>
   </section>
 {% endblock content %}
+{% block remita %}
+<script type="text/javascript" src="https://remitademo.net/payment/v1/remita-pay-inline.bundle.js"></script>
+<script>         
+    function makePayment() {
+        var form = document.querySelector("#payment-form");
+        var paymentEngine = RmPaymentEngine.init({
+            key: 'UzAwMDA1NDkxNzl8MTEwMDU1MTIwMzIxfDRhZjJjYTE1NzcxMjMyY2IzNWE2MzE2NmIxYWQyZjNhYzJjZTczNGU4MmZkYWZmOTk3MDkxYjg2NTZjNWUzMzFjYjE3NTRiZTBkMjc1YTgxMDhlNjhiMTQzYjA1ZjZiMjQ4NjQxZGM5NTU5NzA0ZjY2MjMwYWU5NTcyNmVlZTgz',
+            transactionId: '{{payment.rrr}}', // Replace with a reference you generated or remove the entire field for us to auto-generate a reference for you. Note that you will be able to check the status of this transaction using this transaction Id
+            customerId: '{{payment.student.email}}',
+            firstName: '{{payment.student.first_name}}',
+            lastName: '{{payment.student.last_name}}',
+            email: '{{payment.student.email}}',
+            amount: '{{payment.payment.amount}}',
+            narration: '{{payment.payment.payment_type}}',
+            onSuccess: function (response) {
+                //console.log('callback Successful Response', response);
+            },
+            onError: function (response) {
+                //console.log('callback Error Response', response);
+                
+            },
+            onClose: function () {
+                //console.log("closed");
+            }
+        });
+         paymentEngine.showPaymentWidget();
+    }
+   
+    window.onload = function () {
+        setDemoData();
+    };
+</script>
+{% endblock remita %}

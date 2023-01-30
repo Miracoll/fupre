@@ -189,8 +189,8 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+            <a href="{% url 'viewhostel' %}">
+              <i class="bi bi-circle"></i><span>Apply for hostel</span>
             </a>
           </li>
         </ul>
@@ -201,9 +201,22 @@
           <i class="bi bi-bar-chart"></i><span>Programme</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          {% if not user.defer %}
           <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
+            <a href="{% url 'defer' %}">
+              <i class="bi bi-circle"></i><span>Defer study</span>
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a href="{% url 'resume' %}">
+              <i class="bi bi-circle"></i><span>Resume study</span>
+            </a>
+          </li>
+          {% endif %}
+          <li>
+            <a href="{% url 'change' %}">
+              <i class="bi bi-circle"></i><span>Change course</span>
             </a>
           </li>
         </ul>
@@ -211,12 +224,12 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Library Manager</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span>Result Manager</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
+            <a href="{% url 'get_result' %}">
+              <i class="bi bi-circle"></i><span>Check result</span>
             </a>
           </li>
         </ul>
@@ -272,7 +285,7 @@
     {% if messages %}
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
-        <strong style="text-transform: capitalize;">{{ message.tags }}!</strong> {{message}}
+        <strong style="text-transform: capitalize;"></strong> {{message}}
     </div>
     {% endfor %}
     {% endif %}
@@ -295,6 +308,9 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  {% block remita %}
+  {% endblock remita %}
 
   <!-- Vendor JS Files -->
   <script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>

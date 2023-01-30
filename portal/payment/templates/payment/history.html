@@ -29,6 +29,7 @@
                                     <th>Description</th>
                                     <th>Date/Time generated</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 {% for payment in payment %}
                                 <tr>
@@ -39,8 +40,10 @@
                                     <td>{{payment.generated_on}}</td>
                                     {% if payment.status %}
                                     <td class="text-success">Paid</td>
+                                    <td><a href="">print receipt</a></td>
                                     {% else %}
                                     <td class="text-danger">Not paid</td>
+                                    <td><a href="{% url 'verify_payment' payment.order_id %}">verify</a></td>
                                     {% endif %}
                                 </tr>
                                 {% endfor %}

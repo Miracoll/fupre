@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'configuration.apps.ConfigurationConfig',
     'courses.apps.CoursesConfig',
     'payment.apps.PaymentConfig',
+    'hostel.apps.HostelConfig',
+    'result.apps.ResultConfig',
+    'programme.apps.ProgrammeConfig',
 ]
 
 MIDDLEWARE = [
