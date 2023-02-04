@@ -1,6 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% load humanize %}
 {% block content %}
+{% load static %}
 <div class="pagetitle d-print-none">
     <h1>Payment</h1>
     <nav>
@@ -18,9 +19,20 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="card info-card sales-card">
-                      <div>
-                          <table class="table table-bordered">
+                    <div class="card card-body">
+                      <div style="padding-top:20px;">
+
+                        <div style="padding-top:20px; text-align:center;">
+                            <div>
+                              <img src="{% static 'assets/img/logo-fupre.png' %}" width="150px" height="110px"></div>
+    
+                              <div>
+                                <p style="font-weight:bold; color:#000;">FEDERAL UNIVERSITY OF PETROLEUM RESOURCES<br>
+                                  P.M.B 1221, EFFURUN, DELTA STATE</p>
+                              </div>
+                          </div>
+
+                          <table class="table table-bordered" >
                             <tr>
                                 <th>Name</th>
                                 <td>{{payment.student.last_name}} {{payment.student.first_name}}</td>
@@ -51,7 +63,7 @@
                             </tr>
                           </table>
                       </div>
-                      <button type="button" onclick="makePayment()" class="btn btn-danger d-print-none my-2" target="_blank">Pay now</button>
+                      <button type="button" onclick="makePayment()" class="btn btn-success d-print-none my-2" target="_blank">Pay now</button>
                       <button class="btn btn-outline-secondary d-print-none my-2" onclick="window.print()">Print invoice</button>
                     </div>
                 </div>
