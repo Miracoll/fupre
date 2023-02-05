@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% block content %}
 <div class="pagetitle">
-    <h1>Make Payment</h1>
+    <h1>Dashboard</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -31,24 +31,7 @@
                                   </select>
                                 </div>
                             </div>
-
-
-
-                            <div class="row mb-3">
-                              <label class="col-12 col-form-label">Academic Session</label>
-                              <div class="col-12">
-                                <select class="form-select" aria-label="Default select example" name="payment">
-                                  <option selected>--Select an option--</option>
-                                  {% for payment in payment %}
-                                  <option value="{{payment.ref}}">{{payment.payment_type}}</option>
-                                  {% endfor %}
-                                </select>
-                              </div>
-                          </div>
-
-
-                            
-                            <button type="submit" class="btn btn-success btn-block">Generate invoice</button>
+                            <button type="submit" class="btn btn-primary btn-block">Generate invoice</button>
                         </form>
                     </div>
                 </div>

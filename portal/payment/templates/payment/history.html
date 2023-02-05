@@ -2,7 +2,7 @@
 {% load humanize %}
 {% block content %}
 <div class="pagetitle d-print-none">
-    <h1>Transaction History</h1>
+    <h1>Payment</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-body">
+                    <div class="card info-card sales-card">
                         <div class="table-responsive-sm">
                             <table class="table table-bordered">
                                 {% if payment %}
