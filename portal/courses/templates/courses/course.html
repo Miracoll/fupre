@@ -24,7 +24,11 @@
                           Before proceeding to course registration, please take your time and take a tour on how to register your courses.
                         </div>
                         <div class="card-footer d-flex justify-content-end">
+                          {% if check %}
+                          <a href="{% url 'initialize_registration' %}" class="btn btn-outline-primary" role="button">Continue registration</a>
+                          {% else %}
                           <a href="{% url 'initialize_registration' %}" class="btn btn-outline-primary" role="button">Initialize registration</a>
+                          {% endif %}
                         </div>
                     </div>
                 </div>

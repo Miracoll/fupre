@@ -49,44 +49,47 @@
 
                         </tr>
                       </table>
-                      <table class="table">
-                        <tr>
-                          <th>S/N</th>
-                          <th>Course Code</th>
-                          <th>Course Title</th>
-                          <th>Unit</th>
-                          <th>Action</th>
-                        </tr>
-                        {% for course in courses %}
-                        <tr>
-                          <td>{{forloop.counter}}</td>
-                          <td>{{course.course.course_code}}</td>
-                          <td>{{course.course.course_title}}</td>
-                          <td>{{course.course.credit_unit}}</td>
-                          {% if course.lock %}
-                          <td>
-                            <a href="{% url 'remove_course' course.ref %}" class="text-danger">Remove</a>
-                          </td>
-                          {% else %}
-                          <td>
-                            <a href="{% url 'add_course' course.ref %}" class="text-success">Add</a>
-                          </td>
-                          {% endif %}
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                          <td>Maximum credit unit</td>
-                          <td colspan="4">{{setup.max_credit_unit}}</td>
-                        </tr>
-                        <tr>
-                          <td>Credit unit loaded</td>
-                          <td colspan="4">{{unit.credit_unit__sum}}</td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                      <a href="{% url 'print_courses' %}" class="btn btn-primary w-100" role="button">Proceed to print</a>
-                    </div>
+                      <form action="" method="post">
+                        {% csrf_token%}
+                        <table class="table">
+                          <tr>
+                            <th>S/N</th>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Unit</th>
+                            <th>Action</th>
+                          </tr>
+                          {% for course in courses %}
+                          <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{course.course.course_code}}</td>
+                            <td>{{course.course.course_title}}</td>
+                            <td>{{course.course.credit_unit}}</td>
+                            {% if course.lock %}
+                            <td>
+                              <a href="{% url 'remove_course' course.ref %}" class="text-danger">Remove</a>
+                            </td>
+                            {% else %}
+                            <td>
+                              <a href="{% url 'add_course' course.ref %}" class="text-success">Add</a>
+                            </td>
+                            {% endif %}
+                          </tr>
+                          {% endfor %}
+                          <tr>
+                            <td>Maximum credit unit</td>
+                            <td colspan="4">{{setup.max_credit_unit}}</td>
+                          </tr>
+                          <tr>
+                            <td>Credit unit loaded</td>
+                            <td colspan="4">{{unit.credit_unit__sum}}</td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                      </div>
+                    </form>
                 </div>
             </div>
         </div>

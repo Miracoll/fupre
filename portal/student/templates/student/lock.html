@@ -1,0 +1,67 @@
+{% extends 'staff/base.html' %}
+{% block content %}
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Setup course</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card sales-card">
+                        <form action="" method="post" class="p-4">
+                            <div>
+                                <h5 class="card-title text-center pb-0 fs-4">Lock student</h5>
+                            </div>
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <label class="col-12 col-form-label">Enter student registration number</label>
+                                <div class="col-12">
+                                  <input type="text" name="reg" id="" placeholder="Registration number" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <label class="col-12 col-form-label">Reason for locking student</label>
+                                <div class="col-12">
+                                  <textarea class="form-control" name="reason" id="" rows="3" placeholder="Reason...." required></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" name="lock" class="btn btn-primary btn-block w-100">Lock student</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card sales-card">
+                        <form action="" method="post" class="p-4">
+                            <div>
+                                <h5 class="card-title text-center pb-0 fs-4">Unlock student</h5>
+                            </div>
+                            {% csrf_token %}
+                            <div class="row mb-3">
+                                <label class="col-12 col-form-label">Enter student registration number</label>
+                                <div class="col-12">
+                                  <input type="text" name="reg" id="" placeholder="Registration number" class="form-control" required>
+                                </div>
+                            </div>
+                            <button type="submit" name="unlock" class="btn btn-primary btn-block w-100">Unlock student</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock content %}

@@ -40,7 +40,7 @@
                                     <td>{{payment.generated_on}}</td>
                                     {% if payment.status %}
                                     <td class="text-success">Paid</td>
-                                    <td><a href="">print receipt</a></td>
+                                    <td><a href="{% url 'generate_receipt' payment.ref %}">print receipt</a></td>
                                     {% else %}
                                     <td class="text-danger">Not paid</td>
                                     <td><a href="{% url 'verify_payment' payment.order_id %}">verify</a></td>

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'hostel.apps.HostelConfig',
     'result.apps.ResultConfig',
     'programme.apps.ProgrammeConfig',
+    'staff.apps.StaffConfig',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +92,21 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default':{
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'fupre_student',
+#         'HOST': 'localhost',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         "OPTIONS": {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
+#             'charset': 'utf8mb4',
+#             "autocommit": True,
+#         }
+#     }
+# }
 
 
 # Password validation

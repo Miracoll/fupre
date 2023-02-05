@@ -10,6 +10,7 @@ class Payment_setup(models.Model):
     payment_type = models.CharField(max_length=150)
     amount = models.IntegerField()
     category = models.CharField(max_length=100)
+    level = models.CharField(max_length=20, default='all')
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
 
     def __str__(self):
@@ -22,6 +23,7 @@ class Payment(models.Model):
     category = models.CharField(max_length=100)
     status = models.BooleanField(default=False)
     order_id = models.CharField(max_length=1000)
+    level = models.IntegerField(default=100)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)

@@ -76,13 +76,12 @@
             narration: '{{payment.payment.payment_type}}',
             onSuccess: function (response) {
                 //console.log('callback Successful Response', response);
+                window.location = "{% url 'success' payment.ref %}";
             },
             onError: function (response) {
                 //console.log('callback Error Response', response);
-                
             },
             onClose: function () {
-                //console.log("closed");
             }
         });
          paymentEngine.showPaymentWidget();

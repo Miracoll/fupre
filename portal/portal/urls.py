@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('manager/', admin.site.urls),
     path('',include('dashboard.urls')),
     path('student/',include('student.urls')),
     path('configuration/', include('configuration.urls')),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('hostel/', include('hostel.urls')),
     path('result/', include('result.urls')),
     path('programme/', include('programme.urls')),
+    path('admin/', include('staff.urls')),
 ]
 
 if settings.DEBUG:

@@ -16,9 +16,9 @@
             <p>School address will be here</p>
             <div class="row">
                 {% for student in student %}
-                <h4 class="text-dark text-left">PERSONAL INFOMATION</h4><hr>
+                <h4 class="text-dark text-left">PERSONAL INFORMATION</h4><hr>
                 <div class="col-12 d-flex justify-content-center">
-                    <img src="{{student.passport.url}}" alt="" width="130" height="130" class="float-left">
+                    <img src="{{user.image.url}}" alt="" width="130" height="130" class="float-left">
                 </div>
                 <div class="col-12">
                     <table class="table">
@@ -58,7 +58,7 @@
                 </div>
                 {% endfor %}
                 {% for hostel in hostel %}
-                <h4 class="text-dark text-left">HOSTEL INFOMATION</h4><hr>
+                <h4 class="text-dark text-left">HOSTEL INFORMATION</h4><hr>
                 <div class="col-12">
                     <table class="table">
                         <tr>

@@ -1,0 +1,49 @@
+{% extends 'staff/base.html' %}
+{% block content %}
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Setup faculty</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card sales-card">
+                        <form action="" method="post" class="p-4">
+                            {% csrf_token %}
+                            <div class="row my-3">
+                                <div class="col-12">
+                                    <label for="">Faculty name</label>
+                                    <input type="text" name="fac" id="" class="form-control" placeholder="Faculty name" required>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col-12">
+                                    <label for="">Faculty code</label>
+                                    <input type="text" name="fac_code" id="" class="form-control" placeholder="Department code" required>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col-12">
+                                    <label for="">Current dean</label>
+                                    <input type="text" name="dean" id="" class="form-control" placeholder="Faculty dean" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block w-100">Setup faculty</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock content %}
