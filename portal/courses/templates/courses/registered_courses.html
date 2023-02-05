@@ -1,8 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% block content %}
-{% load static %}
 <div class="pagetitle d-print-none">
-    <h1>Print Course Registration</h1>
+    <h1>Dashboard</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -14,102 +13,66 @@
   <section class="section dashboard">
     <div class="row">
 
-
-
         <!-- Left side columns -->
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-body">
-
-                      <div style="padding-top:20px; text-align:center;">
-                        <div>
-                          <img src="{% static 'assets/img/logo-fupre.png' %}" width="150px" height="110px"></div>
-
-                          <div>
-                            <p style="font-weight:bold; color:#000;">FEDERAL UNIVERSITY OF PETROLEUM RESOURCES<br>
-                              P.M.B 1221, EFFURUN, DELTA STATE</p>
-                          </div>
-
-
-                          <div>
-                            <p style="font-weight:bold; color:#000; font-size: 13px;" > COURSE REGISTRATION FORM </P>
-                          </div>
-                          <hr>
-                      </div>
-
-
-
-                      <div style="display: grid; grid-template-columns: 1fr 3fr 3fr;">
-                        <div class="image-wrap">
-                          <img src="{% static 'assets/img/profile-img.jpg' %}" alt="person" style=" height: 150px; width: 150px; padding: 10px;">
-                        </div>
-                        <div class="first-part-details">
-                            <p>Name :  <span><strong>IKI-EBIEROMA</strong> JENNIFER</span></p>
-                            <p>Matric :  <span>COT/6713/2019</span></p>
-                            <p>Level :  <span>200</span></p>
-                            <p>StudyMode :  <span>Full-Time</span></p>
-                            <p>Programme :  <span>B.Eng. Petroleum Engineering</span></p>
-                        </div>
-                        <div class="second-part-details">
-                            <p>Department :  <span>Petroleum Engineering</span></p>
-                            <p>Faculty :  <span>Technology</span></p>
-                            <p>Semester :  <span>2 Semester</span></p>
-                            <p>Entry Year :  <span>2019/2020</span></p>
-                            <p>Entry Mode :  <span>UTME</span></p>
-                        </div>
-                    </div>
-                      
-
+                    <div class="card info-card sales-card">
                       <table class="table table-bordered">
                         <tr>
-                          {% comment %} <th>S/N</th> {% endcomment %}
+                          <td colspan="2">
+                            <div class="row">
+                              <div class="col-3">NAME</div>
+                              <div class="col-8">{{student.last_name}} {{student.first_name}} {{student.other_name}}</div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="row">
+                              <div class="col-3 font-weight-bold">REG NUMBER</div>
+                              <div class="col-8">{{student.registration_num}}</div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-4 font-weight-bold">LEVEL</div>
+                              <div class="col-8">{{student.level}}</div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>{{student.dept.name}}</td>
+                          <td>{{student.faculty.name}}</td>
+                        </tr>
+                        <tr>
+
+                        </tr>
+                      </table>
+                      <table class="table">
+                        <tr>
+                          <th>S/N</th>
                           <th>Course Code</th>
                           <th>Course Title</th>
                           <th>Unit</th>
-                          <th>Status</th>
                         </tr>
                         {% for course in courses %}
                         <tr>
-                          {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
+                          <td>{{forloop.counter}}</td>
                           <td>{{course.course.course_code}}</td>
                           <td>{{course.course.course_title}}</td>
                           <td>{{course.course.credit_unit}}</td>
-                          <td>c</td>
                         </tr>
                         {% endfor %}
                         <tr>
-                          <td colspan="2"><i>Credit unit loaded</i></td>
-                          <td colspan=""><i>{{unit.credit_unit__sum}}</i></td>
+                          <td>Maximum credit unit</td>
+                          <td colspan="3">{{setup.max_credit_unit}}</td>
+                        </tr>
+                        <tr>
+                          <td>Credit unit loaded</td>
+                          <td colspan="3">{{unit.credit_unit__sum}}</td>
                         </tr>
                       </table>
-
-                      <div style="overflow-x:auto;">
-                        <table  style="text-align: center">
-                          <tr style="padding:10px;">
-                            <td></td>
-                            <td style="padding:10px;">Name</td>
-                            <td style="padding:10px;">Rank</td>
-                            <td style="padding:10px;">Signature</td>
-                            <td style="padding:10px;">Date</td>
-                          </tr>
-                          <tr style="padding:10px;">
-                            <td style="padding:10px;">Head of Department</td>
-                            <td style="padding:10px;">....................................................</td>
-                            <td style="padding:10px;">..........................</td>
-                            <td style="padding:10px;">..........................</td>
-                            <td style="padding:10px;">..........................</td>
-                          </tr>
-                          <tr style="padding:10px;">
-                            <td style="padding:10px;">Dean of Faculty </td>
-                            <td style="padding:10px;">....................................................</td>
-                            <td style="padding:10px;">..........................</td>
-                            <td style="padding:10px;">..........................</td>
-                            <td style="padding:10px;">..........................</td>
-                          </tr>
-
-                        </table>
-                      </div>
                     </div>
                     <div class="d-flex justify-content-center">
                       <a href="" class="btn btn-primary w-100 d-print-none" role="button" onclick="window.print()">Print</a>

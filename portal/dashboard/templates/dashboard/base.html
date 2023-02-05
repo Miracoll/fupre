@@ -44,9 +44,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center d-print-none">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
-        <img src="{% static 'assets/img/fupreAsset 1.png' %}" alt="">
-        <span class="d-none d-lg-block">Undergraduate</span>
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'assets/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">NiceAdmin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -84,7 +84,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -93,7 +93,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            {% comment %} <li>
+            <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
@@ -101,9 +101,9 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li> {% endcomment %}
+            </li>
 
-            {% comment %} <li>
+            <li>
               <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
@@ -111,7 +111,7 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li> {% endcomment %}
+            </li>
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
@@ -157,25 +157,22 @@
             </a>
           </li>
 
-          {% comment %} <li>
-            <a href="{% url 'requestadd' %}">
+          <li>
+            <a href="components-tooltips.html">
               <i class="bi bi-circle"></i><span>Request Add/Delete</span>
             </a>
-          </li> {% endcomment %}
-
-
+          </li>
         </ul>
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-credit-card"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{% url 'payment' %}">
-              <i class="bi bi-circle"></i>
-              <span>Make Payment</span>
+              <i class="bi bi-circle"></i><span>Make Payment</span>
             </a>
           </li>
           <li>
@@ -188,7 +185,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-house"></i><span>Accomodation</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Accomodation</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -227,7 +224,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-file-earmark-person-fill"></i><span>Result Manager</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span>Result Manager</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>

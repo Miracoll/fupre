@@ -17,26 +17,26 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-body">
-                      <table class="table ">
+                    <div class="card info-card sales-card">
+                      <table class="table table-bordered">
                         <tr>
                           <td colspan="2">
                             <div class="row">
-                              <div class="" style="font-weight:bold">NAME</div>
-                              <div class="">{{student.last_name}} {{student.first_name}} {{student.other_name}}</div>
+                              <div class="col-3">NAME</div>
+                              <div class="col-8">{{student.last_name}} {{student.first_name}} {{student.other_name}}</div>
                             </div>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             <div class="row">
-                              <div class="" style="font-weight:bold">REG NUMBER</div>
+                              <div class="col-3 font-weight-bold">REG NUMBER</div>
                               <div class="col-8">{{student.registration_num}}</div>
                             </div>
                           </td>
                           <td>
                             <div class="row">
-                              <div style="font-weight:bold">LEVEL</div>
+                              <div class="col-4 font-weight-bold">LEVEL</div>
                               <div class="col-8">{{student.level}}</div>
                             </div>
                           </td>
@@ -49,51 +49,40 @@
 
                         </tr>
                       </table>
-
-
-                      <div style="overflow-x:auto;">
-                        <table class="table table-sm">
-                          <tr>
-                            {% comment %} <th>S/N</th> {% endcomment %}
-                            <th>Course Code</th>
-                            <th>Course Title</th>
-                            <th>Unit</th>
-                            <th>Status</th>
-                            <th>Sememster</th>
-                            <th>Session</th>
-                            <th>Action</th>
-                          </tr>
-                          {% for course in courses %}
-                          <tr>
-                            {% comment %} <td>{{forloop.counter}}</td> {% endcomment %}
-                            <td>{{course.course.course_code}}</td>
-                            <td>{{course.course.course_title}}</td>
-                            <td>{{course.course.credit_unit}}</td>
-                            <td>C</td>
-                            <td>1st</td>
-                            <td>2022/2023</td>
-                            {% if course.lock %}
-                            <td>
-                              <a href="{% url 'remove_course' course.ref %}" class="text-danger">Remove</a>
-                            </td>
-                            {% else %}
-                            <td>
-                              <a href="{% url 'add_course' course.ref %}" class="text-success">Add</a>
-                            </td>
-                            {% endif %}
-                          </tr>
-                          {% endfor %}
-                          
-                          <tr> 
-                            <td colspan="2" style="text-align:center;"><i>Maximum credit unit</i></td>
-                            <td colspan=""><i>{{setup.max_credit_unit}}</i></td>
-                          </tr>
-                          <tr>
-                            <td colspan="2" style="text-align:center;"><i>Credit unit loaded</i></td>
-                            <td colspan=""><i>{{unit.credit_unit__sum}}</i></td>
-                          </tr>
-                        </table>
-                      </div>
+                      <table class="table">
+                        <tr>
+                          <th>S/N</th>
+                          <th>Course Code</th>
+                          <th>Course Title</th>
+                          <th>Unit</th>
+                          <th>Action</th>
+                        </tr>
+                        {% for course in courses %}
+                        <tr>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{course.course.course_code}}</td>
+                          <td>{{course.course.course_title}}</td>
+                          <td>{{course.course.credit_unit}}</td>
+                          {% if course.lock %}
+                          <td>
+                            <a href="{% url 'remove_course' course.ref %}" class="text-danger">Remove</a>
+                          </td>
+                          {% else %}
+                          <td>
+                            <a href="{% url 'add_course' course.ref %}" class="text-success">Add</a>
+                          </td>
+                          {% endif %}
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                          <td>Maximum credit unit</td>
+                          <td colspan="4">{{setup.max_credit_unit}}</td>
+                        </tr>
+                        <tr>
+                          <td>Credit unit loaded</td>
+                          <td colspan="4">{{unit.credit_unit__sum}}</td>
+                        </tr>
+                      </table>
                     </div>
                     <div class="d-flex justify-content-center">
                       <a href="{% url 'print_courses' %}" class="btn btn-primary w-100" role="button">Proceed to print</a>

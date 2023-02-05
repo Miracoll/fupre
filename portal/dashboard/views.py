@@ -36,6 +36,3 @@ def loginuser(request):
 def logoutuser(request):
     logout(request)
     return redirect('login')
-
-def profile(request):
-    return render(request, 'dashboard/profile.html' )
