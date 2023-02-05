@@ -91,3 +91,6 @@ def print_courses(request):
         'unit':loaded_unit
     }
     return render(request, 'courses/registered_courses.html', context)
+
+def requestadd(request):
+    return render(request, 'courses/request.html')
