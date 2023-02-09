@@ -50,6 +50,7 @@ class Faculty(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=255)
+    dept_abbr = models.CharField(max_length=5)
     code = models.CharField(max_length=50)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     hod = models.CharField(max_length=255)

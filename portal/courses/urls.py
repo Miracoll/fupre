@@ -12,6 +12,7 @@ urlpatterns = [
     path('setup', views.setup_course, name='course_setup'),
     path('query', views.query, name='query'),
     path('manage/course/<str:dept>/<str:sem>/<str:level>/', views.manage_course, name='manage_course'),
+    path('update/course/<str:reference>', views.update_course, name='update_course'),
     path('query_department', views.dept_query, name='dept_query'),
     path('manage/department/<str:dept>/<str:sem>/<str:level>/', views.manage_dept, name='manage_dept'),
     path('limit', views.reg_limit, name='limit'),

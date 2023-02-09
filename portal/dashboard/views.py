@@ -23,11 +23,13 @@ def loginuser(request):
 
         try:
             get_user = User.objects.get(username=username)
+            print(get_user)
         except:
             messages.warning(request,'username does not exist')
             return redirect('login')
         
         user = authenticate(request, username=username, password=password)
+        print(user)
 
         if user is not None:
             login(request,user)

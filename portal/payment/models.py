@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import uuid
-from configuration.models import Semester, Session
+from configuration.models import Semester, Session, User
 from student.models import Student
 
 # Create your models here.
@@ -12,6 +12,8 @@ class Payment_setup(models.Model):
     category = models.CharField(max_length=100)
     level = models.CharField(max_length=20, default='all')
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.payment_type
@@ -26,6 +28,7 @@ class Payment(models.Model):
     level = models.IntegerField(default=100)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    complete = models.BooleanField(default=True)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     generated_on = models.DateTimeField(default=timezone.now)
     paid_on = models.DateTimeField(blank=True, null=True)

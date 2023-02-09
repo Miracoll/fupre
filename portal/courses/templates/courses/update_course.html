@@ -15,9 +15,9 @@
 
         <!-- Left side columns -->
         
-        <div class="col-6">
+        <div class="col-12">
             <div>
-              <h5 class="card-title text-center pb-0 fs-4">Manual upload</h5>
+              <h5 class="card-title text-center pb-0 fs-4">Update course</h5>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -27,26 +27,27 @@
                             <div class="row my-3">
                                 <div class="col-12">
                                     <label for="">Course title</label>
-                                    <input type="text" name="title" id="" class="form-control" placeholder="Course title" required>
+                                    <input type="text" name="title" value="{{course.course_title}}" class="form-control" placeholder="Course title" required>
                                 </div>
                             </div>
                             <div class="row my-3">
                                 <div class="col-12">
                                     <label for="">Course code</label>
-                                    <input type="text" name="code" id="" class="form-control" placeholder="Course code" required>
+                                    <input type="text" name="code" value="{{course.course_code}}" class="form-control" placeholder="Course code" required>
                                 </div>
                             </div>
                             <div class="row my-3">
-                              <label class="col-12 col-form-label">Select course status</label>
+                              <label class="col-12 col-form-label">Is core course(<small class="text-danger">Currently - {{course.core_course|yesno}}</small>)</label>
                               <div class="col-12">
                                 <select class="form-select" aria-label="Default select example" name="core" required>
-                                  <option value="1">Core course</option>
-                                  <option value="0">Elective</option>
+                                    <option value="">--Select an option--</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                               </div>
                           </div>
                             <div class="row my-3">
-                                <label class="col-12 col-form-label">Select credit unit</label>
+                                <label class="col-12 col-form-label">Select credit unit(<small class="text-danger">Currently - {{course.credit_unit}}</small>)</label>
                                 <div class="col-12">
                                   <select class="form-select" aria-label="Default select example" name="unit" required>
                                     <option value="1">1</option>
@@ -61,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="row my-3">
-                                <label class="col-12 col-form-label">Select department</label>
+                                <label class="col-12 col-form-label">Select department(<small class="text-danger">Currently - {{course.dept.name}}</small>)</label>
                                 <div class="col-12">
                                   <select class="form-select" aria-label="Default select example" name="dept" required>
                                     <option selected>--Select an option--</option>
@@ -72,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="row my-3">
-                                <label class="col-12 col-form-label">Select semester</label>
+                                <label class="col-12 col-form-label">Select semester(<small class="text-danger">Currently - {{course.semester}}</small>)</label>
                                 <div class="col-12">
                                   <select class="form-select" aria-label="Default select example" name="semester" required>
                                     <option selected>--Select an option--</option>
@@ -100,34 +101,11 @@
                             <div class="row my-3">
                                 <div class="col-12">
                                     <label for="">Co-ordinator</label>
-                                    <input type="text" name="coordinator" id="" class="form-control" placeholder="Course co-ordinator">
+                                    <input type="text" name="coordinator" value="{{course.coodinator}}" class="form-control" placeholder="Course co-ordinator">
                                 </div>
                             </div>
-                            <button type="submit" name="manual" class="btn btn-primary btn-block w-100">Setup course</button>
+                            <button type="submit" name="manual" class="btn btn-primary btn-block w-100">Update course</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-          <div>
-            <h5 class="card-title text-center pb-0 fs-4">Upload file</h5>
-          </div>
-          <div class="row">
-            <div class="col-12">
-                <div class="card info-card sales-card">
-                    <form action="" method="post" class="p-4" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row my-3">
-                            <div class="col-12">
-                                <label for="">Upload courses from csv file</label>
-                                <input type="file" name="file" id="" class="form-control" required>
-                            </div>
-                        </div>
-                        <button type="submit" name="upload" class="btn btn-primary btn-block w-100">Upload courses</button>
-                    </form>
-                    <div class="mx-4">
-                      <a href="">Download template</a>
                     </div>
                 </div>
             </div>

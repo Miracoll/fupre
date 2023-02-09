@@ -62,7 +62,13 @@
                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                     <p class="text-center small">Enter your registration number & password to login</p>
                   </div>
-
+                  {% if messages %}
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }}">
+                      <strong style="text-transform: capitalize;"></strong> {{message}}
+                  </div>
+                  {% endfor %}
+                  {% endif %}
                   <form class="row g-3 needs-validation" novalidate method="POST">
 
                     {% csrf_token %}

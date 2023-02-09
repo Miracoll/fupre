@@ -9,6 +9,7 @@ from dashboard.decorators import allowed_users
 from .models import Courses, Department_setup, Registered, Donecourse
 from student.models import Student
 from configuration.models import Config, Department, Semester, Session, User
+from payment.models import Payment
 from datetime import date
 from functions.functions import str2date
 import csv
@@ -40,6 +41,11 @@ def initialize_registration(request):
     semester = Semester.objects.get(status=True)
     session = Session.objects.get(active=True)
     student = Student.objects.get(registration_num=user.username)
+    try:
+        Payment.objects.get(student=student,session=session,complete=True,status=True)
+    except Payment.DoesNotExist:
+        messages.error(request, 'No tuition fee payment found')
+        return redirect('payment')
     if Donecourse.objects.filter(student=student,session=session,semester=semester,status=True).exists():
         return redirect('print_courses')
     if course_date < current:
@@ -54,7 +60,7 @@ def initialize_registration(request):
         for i in course_box.values():
             course_box_unit = Courses.objects.get(
                 level=i.get('level'), active=True, course_code = i.get('course_code'), course_title=i.get('course_title'),
-                semester = Semester.objects.get(id=i.get('semester_id')), dept = Department.objects.get(id=i.get('dept_id'))
+                semester = semester.semester, dept = Department.objects.get(id=i.get('dept_id'))
             )
             if Registered.objects.filter(student=user.username, course = course_box_unit).exists():
                 continue
@@ -190,6 +196,7 @@ def setup_course(request):
         sem = request.POST.get('semester')
         level = request.POST.get('level')
         coordinator = request.POST.get('coordinator').upper()
+        core = int(request.POST.get('core'))
 
         department = Department.objects.get(ref=get_dept)
         new_code = course_code.replace(' ','')
@@ -198,10 +205,10 @@ def setup_course(request):
             messages.error(request, 'Course already exist')
         else:
             Courses.objects.create(course_code=new_code,course_title=course_title,credit_unit=unit,
-                semester=sem,level=level,coodinator=coordinator,dept=department
+                semester=sem,level=level,coodinator=coordinator,dept=department,core_course=bool(core)
             )
             messages.success(request, 'Course added successfully')
-        return redirect('setup')
+        return redirect('course_setup')
 
     if 'upload' in request.POST:
         csv_file = request.FILES["file"]
@@ -238,6 +245,32 @@ def manage_course(request, dept, sem, level):
     courses = Courses.objects.filter(dept=department,semester=str(semester.semester),level=level)
     context = {'course':courses}
     return render(request, 'courses/manage_course.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def update_course(request, reference):
+    dept = Department.objects.all()
+    semester = Semester.objects.all()
+    courses = Courses.objects.get(ref=reference)
+    if request.method == 'POST':
+        course_title = request.POST.get('title').upper()
+        course_code = request.POST.get('code').upper()
+        unit = request.POST.get('unit')
+        get_dept = request.POST.get('dept')
+        sem = request.POST.get('semester')
+        level = request.POST.get('level')
+        coordinator = request.POST.get('coordinator').upper()
+        core = int(request.POST.get('core'))
+
+        department = Department.objects.get(ref=get_dept)
+        new_code = course_code.replace(' ','')
+
+        Courses.objects.filter.update(
+            course_code=new_code,course_title=course_title,credit_unit=unit,
+            semester=sem,level=level,coodinator=coordinator,dept=department,core_course=bool(core)
+        )
+    context = {'course':courses,'dept':dept,'semester':semester}
+    return render(request, 'courses/update_course.html',context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])

@@ -14,6 +14,7 @@ class Courses(models.Model):
     semester = models.CharField(max_length=10)
     level = models.CharField(max_length=20)
     active = models.BooleanField(default=True)
+    core_course = models.BooleanField()
     coodinator = models.CharField(max_length=100, blank=True, null=True)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)

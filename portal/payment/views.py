@@ -136,6 +136,18 @@ def error_payment(request, reference):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def payment_setup(request):
+    if request.method == 'POST':
+        user = request.user
+        payment = request.POST.get('payment').upper()
+        amount = int(request.POST.get('amount'))
+        category = request.POST.get('category')
+        level = request.POST.get('level')
+
+        Payment_setup.objects.create(
+            payment_type=payment,amount=amount,category=category,level=level,created_by=user
+        )
+        messages.success(request, 'Payment added successfully')
+        return redirect('setup')
     return render(request, 'payment/payment_setup.html')
 
 @login_required(login_url='login')
