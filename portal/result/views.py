@@ -21,5 +21,5 @@ def result(request, isession, isemester):
     semester = Semester.objects.get(ref=isemester)
     session = Session.objects.get(ref=isession)
     result = Result.objects.filter(student=student,session=session,semester=semester)
-    context = {'result':result}
+    context = {'result':result, 'student':student, 'semester':semester, 'session':session }
     return render(request, 'result/result.html',context)

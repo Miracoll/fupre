@@ -1,0 +1,62 @@
+{% extends 'application/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row my-4">
+    <div class="col-12 d-flex justify-content-center">
+        <!-- <h2>{{school}}</h2> -->
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <h4>APPLICATION FEE RECEPT</h4>
+    </div>
+</div>
+{% comment %} <div class="row my-4">
+    <div class="col-sm-12">
+        <div class="d-flex post-entry d-flex justify-content-center">
+            <div class="custom-thumbnail">
+            <img src="{{user.profile.passport.url}}" alt="Image" class="img-fluid rounded-circle" width="150px" height="150px">
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+<div class="row d-flex justify-content-center my-4">
+    <div class="col-10">
+        <div class="table-responsive-md">
+            <table class="table">
+                <tr>
+                    <td>Jamb Number</td>
+                    <td>{{ student.applicant.jamb }}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Last Name</th>
+                    <td class="text-left">{{student.applicant.last_name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">First Name</th>
+                    <td class="text-left">{{student.applicant.first_name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Email</th>
+                    <td class="text-left">{{student.applicant.email}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Date of Birth</th>
+                    <td class="text-left">{{student.applicant.dob}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Address</th>
+                    <td class="text-left">{{student.applicant.address}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Mobile</th>
+                    <td class="text-left">{{student.applicant.mobile}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row d-flex justify-content-center my-4">
+    <div class="col-12">
+        <button class="btn btn-success d-print-none btn-block" onclick="window.print()">Print</button>
+    </div>
+</div>
+{% endblock content %}

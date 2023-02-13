@@ -1,0 +1,43 @@
+{% extends 'application/main.html' %}
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Course Information</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-12">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row my-3">
+                <div class="col-12">
+                    <label for="">First choice</label>
+                    <select name="dept1" class="form-control" id="" required>
+                        <option value="">--Select department--</option>
+                        {% for dept in dept %}
+                        <option value="{{dept.ref}}">{{dept.name}}-<strong>{{dept.cert}}</strong></option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-12">
+                    <label for="">Second choice</label>
+                    <select name="dept2" class="form-control" id="" required>
+                        <option value="">--Select department--</option>
+                        {% for dept in dept %}
+                        <option value="{{dept.ref}}">{{dept.name}}-<strong>{{dept.cert}}</strong></option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-12">
+                    <button type="submit" name="submit" class="btn btn-dark btn-block">Save and continue</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

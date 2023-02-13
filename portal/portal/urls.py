@@ -29,6 +29,7 @@ urlpatterns = [
     path('result/', include('result.urls')),
     path('programme/', include('programme.urls')),
     path('admin/', include('staff.urls')),
+    path('application/',include('application.urls')),
 ]
 
 if settings.DEBUG:

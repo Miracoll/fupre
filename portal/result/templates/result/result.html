@@ -1,7 +1,8 @@
 {% extends 'dashboard/base.html' %}
 {% block content %}
+{% load static %}
 <div class="pagetitle d-print-none">
-    <h1>Payment</h1>
+    <h1>Manage Result</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -18,7 +19,46 @@
             <div class="row">
                 <div class="col-12">
                     {% if result %}
-                    <div class="card info-card sales-card">
+                    <div class="card card-body">
+
+                        <div style="padding-top:20px; text-align:center;">
+                            <div>
+                              <img src="{% static 'assets/img/logo-fupre.png' %}" width="150px" height="110px"></div>
+    
+                              <div>
+                                <p style="font-weight:bold; color:#000;">FEDERAL UNIVERSITY OF PETROLEUM RESOURCES<br>
+                                  P.M.B 1221, EFFURUN, DELTA STATE</p>
+                              </div>
+
+                              <div><p style="font-weight:bold">SECOND SEMESTER RESULT</p></div>
+                              <hr>
+                          </div>
+
+
+                          <div style="display: grid; grid-template-columns: 1fr 3fr 3fr;">
+                            <div class="image-wrap">
+                                <img src="{{user.image.url}}" alt="person" style=" height: 150px; width: 150px; padding: 10px;">
+                            </div>
+                            <div class="first-part-details">
+                                <p>Name :  <span><strong>{{student.last_name}} </strong> {{student.first_name}} {{student.other_name}}</span></p>
+                                <p>Matric :  <span>{{student.registration_num}}</span></p>
+                                <p>Level :  <span>{{student.level}}</span></p>
+                                <p>StudyMode :  <span>Full-Time</span></p>
+                                <p>Programme :  <span>{{student.dept.cert}} {{student.dept.name}}</span></p>
+                            </div>
+                            <div class="second-part-details">
+                                <p>Department :  <span>{{student.dept.name}}</span></p>
+                                <p>Faculty :  <span>{{student.faculty.name}}</span></p>
+                                <p>Semester :  <span>{%if semester.semester  == 1%}
+                                  <span>First</span>
+                                  {%elif semester.semester  == 2%}
+                                  <span>Second</span>
+                                  {%endif%}</span></p>
+                                <p>Session :  <span>{{session.session}}</span></p>
+                                <p>Entry Mode :  <span>{{student.entry_mode}}</span></p>
+                            </div>
+                        </div>
+
                         <div class="table-responsive-sm">
                             <table class="table table-bordered">
                                 <tr>
@@ -42,6 +82,11 @@
                                 </tr>
                                 {% endfor %}
                             </table>
+
+                            <div>
+                                <p>Semester G.P: </p>
+                                <p>CGPA:</p>
+                            </div>
                             <div class="d-flex justify-content-center">
                                 <a href="" class="btn btn-primary w-100 d-print-none" role="button" onclick="window.print()">Print</a>
                             </div>

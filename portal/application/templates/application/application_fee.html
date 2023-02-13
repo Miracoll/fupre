@@ -1,0 +1,143 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fupre - Payment</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'studentpage/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'studentpage/css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="row mt-5 d-flex justify-content-center">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-10 col-md-12 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Amount</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">NGN {{payment.amount|intcomma}}</div>
+                                        </div>
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Payment Reference</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{payment.rrr}}</div>
+                                        </div>
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Date Generated</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{payment.generated_on}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <button class="btn btn-danger text-center" onclick="makePayment()">Pay now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <script type="text/javascript" src="https://remitademo.net/payment/v1/remita-pay-inline.bundle.js"></script>
+    <script>         
+        function makePayment() {
+            var form = document.querySelector("#payment-form");
+            var paymentEngine = RmPaymentEngine.init({
+                key: 'UzAwMDA1NDkxNzl8MTEwMDU1MTIwMzIxfDRhZjJjYTE1NzcxMjMyY2IzNWE2MzE2NmIxYWQyZjNhYzJjZTczNGU4MmZkYWZmOTk3MDkxYjg2NTZjNWUzMzFjYjE3NTRiZTBkMjc1YTgxMDhlNjhiMTQzYjA1ZjZiMjQ4NjQxZGM5NTU5NzA0ZjY2MjMwYWU5NTcyNmVlZTgz',
+                transactionId: '{{payment.rrr}}', // Replace with a reference you generated or remove the entire field for us to auto-generate a reference for you. Note that you will be able to check the status of this transaction using this transaction Id
+                customerId: '{{payment.applicant.email}}',
+                firstName: '{{payment.applicant.first_name}}',
+                lastName: '{{payment.applicant.last_name}}',
+                email: '{{payment.applicant.email}}',
+                amount: '{{payment.amount}}',
+                narration: '{{payment.payment.payment_type}}',
+                onSuccess: function (response) {
+                    //console.log('callback Successful Response', response);
+                    window.location = "{% url 'successful_payment' payment.ref %}";
+                },
+                onError: function (response) {
+                    //console.log('callback Error Response', response);
+                    
+                },
+                onClose: function () {
+                    //console.log("closed");
+                }
+            });
+            paymentEngine.showPaymentWidget();
+        }
+    
+        window.onload = function () {
+            setDemoData();
+        };
+    </script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'studentpage/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'studentpage/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'studentpage/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'studentpage/js/sb-admin-2.min.js' %}"></script>
+
+</body>
+
+</html>

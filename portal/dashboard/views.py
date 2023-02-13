@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from dashboard.decorators import allowed_users
 from student.models import Student
 from configuration.models import User
+from configuration.models import Semester, Session
 
 # Create your views here.
 
@@ -13,7 +14,9 @@ from configuration.models import User
 def home(request):
     user = request.user.username
     student = Student.objects.get(registration_num=user)
-    context = {'student':student}
+    semester = Semester.objects.get(status=True)
+    session = Session.objects.get(active=True)
+    context = {'student':student, 'semester':semester, 'session':session }
     return render(request, 'dashboard/dashboard.html', context)
 
 def loginuser(request):
@@ -70,3 +73,14 @@ def password_reset(request,pk):
                 messages.warning(request, 'Password did not match')
                 return redirect('password_reset',pk)
     return render(request, 'dashboard/password_reset.html')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def profile(request):
+    user = request.user.username
+    student = Student.objects.get(registration_num=user)
+    semester = Semester.objects.get(status=True)
+    session = Session.objects.get(active=True)
+    context = {'student':student, 'semester':semester, 'session':session }
+    return render(request, 'dashboard/profile.html', context )

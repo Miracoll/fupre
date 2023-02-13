@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'result.apps.ResultConfig',
     'programme.apps.ProgrammeConfig',
     'staff.apps.StaffConfig',
+    'application.apps.ApplicationConfig',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,12 @@ AUTH_USER_MODEL = 'configuration.User'
 MESSAGE_TAGS = {
     messages.ERROR:'danger',
 }
+
+#Email validation
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'djangomail2468@gmail.com'
+EMAIL_HOST_PASSWORD = 'bhnb jaat jcju abzx'
+DEFAULT_FROM_EMAIL = "FUPRE APPLICATION <djangomail2468@gmail.com>"

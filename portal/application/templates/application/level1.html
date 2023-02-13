@@ -1,0 +1,22 @@
+{% extends 'application/main.html' %}
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Personal Information</h1>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-12">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="row my-3">
+                <div class="col-12">
+                    <button type="submit" name="submit" class="btn btn-dark btn-block">Save and continue</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

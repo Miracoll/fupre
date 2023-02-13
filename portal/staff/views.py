@@ -82,3 +82,7 @@ def adminaccount(request):
 # def logoutuser(request):
 #     logout(request)
 #     return redirect('signin')
+
+
+def profile(request):
+    return render(request, 'staff/profile.html' )

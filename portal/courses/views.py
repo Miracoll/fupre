@@ -144,7 +144,9 @@ def print_courses(request):
         'courses':courses,
         'student':student,
         'setup':course_setup,
-        'unit':loaded_unit
+        'unit':loaded_unit,
+        'semester' : semester,
+        'session' : session
     }
     return render(request, 'courses/registered_courses.html', context)
 
@@ -265,7 +267,7 @@ def update_course(request, reference):
         department = Department.objects.get(ref=get_dept)
         new_code = course_code.replace(' ','')
 
-        Courses.objects.filter.update(
+        Courses.objects.filter(ref=reference).update(
             course_code=new_code,course_title=course_title,credit_unit=unit,
             semester=sem,level=level,coodinator=coordinator,dept=department,core_course=bool(core)
         )

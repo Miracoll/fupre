@@ -1,0 +1,271 @@
+{% extends 'application/main.html' %}
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Olevel Information</h1>
+</div>
+
+<!-- Content Row -->
+
+<form action="" method="post">
+<div class="row">
+    <div class="col-6">
+            {% csrf_token %}
+            <div class="row my-3">
+                <div class="col-12">
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam type</label>
+                            <select name="examtype1" class="form-control" id="" required>
+                                <option value="WAEC">WAEC</option>
+                                <option value="NECO">NECO</option>
+                                <option value="NABTEB">NABTEB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam year</label>
+                            <input type="text" name="examyear1" class="form-control" placeholder="2020" required>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam number</label>
+                            <input type="text" name="examnumber1" class="form-control" placeholder="Exam number" required>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam center</label>
+                            <input type="text" name="examcenter1" class="form-control" placeholder="Exam center" required>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub1" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade1" class="form-control" placeholder="A" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub2" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade2" class="form-control" placeholder="A" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub3" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade3" class="form-control" placeholder="A" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub4" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade4" class="form-control" placeholder="A" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub5" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade5" class="form-control" placeholder="A" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub6" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade6" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub7" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade7" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub8" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade8" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub9" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade9" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="col-6">
+            <div class="row my-3">
+                <div class="col-12">
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam type</label>
+                            <select name="examtype11" class="form-control" id="">
+                                <option value="WAEC">WAEC</option>
+                                <option value="NECO" selected>NECO</option>
+                                <option value="NABTEB">NABTEB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam year</label>
+                            <input type="text" name="examyear11" class="form-control" placeholder="2020" >
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam number</label>
+                            <input type="text" name="examnumber11" class="form-control" placeholder="Exam number" >
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-12">
+                            <label for="">Exam center</label>
+                            <input type="text" name="examcenter11" class="form-control" placeholder="Exam center" >
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub11" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade11" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub21" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade21" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub31" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade31" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub41" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade41" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub51" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade51" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub61" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade61" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub71" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade71" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub81" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade81" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="">Subject</label>
+                            <input type="text" name="sub91" class="form-control" placeholder="Subject" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">Grade</label>
+                            <input type="text" name="grade91" class="form-control" placeholder="A" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="row my-3">
+    <div class="col-12">
+        <button type="submit" name="submit" class="btn btn-dark btn-block">Submit</button>
+    </div>
+</div>
+</form>
+{% endblock content %}

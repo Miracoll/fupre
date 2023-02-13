@@ -1,4 +1,61 @@
 {% extends 'staff/base.html' %}
 {% block content %}
-Hello world
+
+<div class="pagetitle">
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+
+<section class="section dashboard">
+    <div class="">
+
+        <div class="row g-4 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="card shadow-sm h-90">
+                    <div class="card-body p-3 p-lg-4" style="text-align:center;">
+                        <h4 class="stats-type mb-1">Faculty</h4>
+                        <div class="stats-figure">23</div>
+                    </div><!--//app-card-body-->
+                </div><!--//app-card-->
+            </div><!--//col-->
+
+
+            <div class="col-6 col-lg-3">
+                <div class="card shadow-sm h-90">
+                    <div class="card-body p-3 p-lg-4" style="text-align:center;">
+                        <h4 class="stats-type mb-1">Departments</h4>
+                        <div class="stats-figure">23</div>
+                    </div><!--//app-card-body-->
+                </div><!--//app-card-->
+            </div><!--//col-->
+
+
+            <div class="col-6 col-lg-3">
+                <div class="card shadow-sm h-90">
+                    <div class="card-body p-3 p-lg-4" style="text-align:center;">
+                        <h4 class="stats-type mb-1">Courses</h4>
+                        <div class="stats-figure">23</div>
+                    </div><!--//app-card-body-->
+                </div><!--//app-card-->
+            </div><!--//col-->
+
+            <div class="col-6 col-lg-3">
+                <div class="card card-body shadow-sm h-100">
+                    <div class="app-card-body p-3 p-lg-4">
+                        <h4 class="stats-type mb-1">Invoices</h4>
+                        <div class="stats-figure">6</div>
+                        <div class="stats-meta">New</div>
+                    </div><!--//app-card-body-->
+                    <a class="app-card-link-mask" href="#"></a>
+                </div><!--//app-card-->
+            </div><!--//col-->
+        </div><!--//row-->
+    </div>
+</section>
+
 {% endblock content %}
