@@ -6,7 +6,7 @@
         <!-- <h2>{{school}}</h2> -->
     </div>
     <div class="col-12 d-flex justify-content-center">
-        <h4>ACKNOWLEDGEMENT PRINTOUT</h4>
+        <h4>ADMISSION STATUS PRINTOUT</h4>
     </div>
 </div>
 {% comment %} <div class="row my-4">
@@ -22,12 +22,6 @@
     <div class="col-12">
         <div class="table-responsive-md">
             <table class="table">
-                <tr>
-                    <th>Passport</th>
-                    <td class="justify-content-center">
-                        <img src="{{student.personal.photo.url}}" alt="{{student.personal.last_name}} {{student.personal.first_name}}" style="width: 150px; height:150px;">
-                    </td>
-                </tr>
                 <tr>
                     <th>Jamb Number</th>
                     <td>{{ student.applicant.jamb }}</td>
@@ -45,24 +39,12 @@
                     <td class="text-left">{{student.applicant.email}}</td>
                 </tr>
                 <tr>
-                    <th class="text-left">Date of Birth</th>
-                    <td class="text-left">{{student.personal.dob}}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Address</th>
-                    <td class="text-left">{{student.personal.address}}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Mobile</th>
-                    <td class="text-left">{{student.applicant.mobile}}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">First choice</th>
-                    <td class="text-left">{{student.course.dept1.name}}</td>
-                </tr>
-                <tr>
-                    <th class="text-left">Second choice</th>
-                    <td class="text-left">{{student.course.dept2.name}}</td>
+                    <th class="text-left">Admitted department</th>
+                    {% if student.admitted %}
+                    <td class="text-left">{{admit.dept.name}}</td>
+                    {% else %}
+                    <td class="text-left text-danger"><i>Not admitted yet</i></td>
+                    {% endif %}
                 </tr>
             </table>
         </div>

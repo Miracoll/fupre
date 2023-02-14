@@ -20,6 +20,9 @@
 </div> {% endcomment %}
 <div class="row d-flex justify-content-center my-4">
     <div class="col-12">
+        <div class="alert alert-info">
+            Do not generate matric number if any information below in incorrect
+        </div>
         <div class="table-responsive-md">
             <table class="table">
                 <tr>
@@ -40,6 +43,12 @@
                     <th class="text-left">First Name</th>
                     <td class="text-left">{{student.applicant.first_name}}</td>
                 </tr>
+                {% if student.applicant.other_name  %} 
+                <tr>
+                    <th class="text-left">Other Name</th>
+                    <td class="text-left">{{student.applicant.other_name}}</td>
+                </tr>
+                {% endif %}
                 <tr>
                     <th class="text-left">Email</th>
                     <td class="text-left">{{student.applicant.email}}</td>
@@ -57,20 +66,31 @@
                     <td class="text-left">{{student.applicant.mobile}}</td>
                 </tr>
                 <tr>
-                    <th class="text-left">First choice</th>
-                    <td class="text-left">{{student.course.dept1.name}}</td>
+                    <th class="text-left">Faculty</th>
+                    <td class="text-left">{{dept.dept.faculty.name}}</td>
                 </tr>
                 <tr>
-                    <th class="text-left">Second choice</th>
-                    <td class="text-left">{{student.course.dept2.name}}</td>
+                    <th class="text-left">Department</th>
+                    <td class="text-left">{{dept.dept.name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Matric number</th>
+                    <td class="text-left">{{student.registration_num}}</td>
                 </tr>
             </table>
         </div>
-    </div>
-</div>
-<div class="row d-flex justify-content-center my-4">
-    <div class="col-12">
-        <button class="btn btn-success d-print-none btn-block" onclick="window.print()">Print</button>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row d-flex justify-content-center my-4">
+                <div class="col-12">
+                    {% if student.registration_num %}
+                    <button type="button" class="btn btn-success d-print-none btn-block" onclick="window.print()">Print</button>
+                    {% else %}
+                    <button type="submit" name="submit" class="btn btn-success d-print-none btn-block">Generate matric number</button>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock content %}

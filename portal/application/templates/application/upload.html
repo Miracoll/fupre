@@ -1,0 +1,41 @@
+{% extends 'application/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row my-4">
+    <div class="col-12 d-flex justify-content-center">
+        <!-- <h2>{{school}}</h2> -->
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <h4>UPLOAD DOCUMENT</h4>
+    </div>
+</div>
+{% comment %} <div class="row my-4">
+    <div class="col-sm-12">
+        <div class="d-flex post-entry d-flex justify-content-center">
+            <div class="custom-thumbnail">
+            <img src="{{user.profile.passport.url}}" alt="Image" class="img-fluid rounded-circle" width="150px" height="150px">
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+<div class="row d-flex justify-content-center my-4">
+    <div class="col-12">
+        {% if status %}
+        <div class="alert alert-info">
+            Recommended image size: 800px x 800px
+        </div>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="row my-3">
+                <div class="col-12">
+                    <button type="submit" name="submit" class="btn btn-dark btn-block">Submit</button>
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <h3 class="text-danger"><i>No acceptance fee found</i></h3>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

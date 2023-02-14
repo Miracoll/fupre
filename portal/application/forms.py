@@ -1,5 +1,5 @@
 from django import forms
-from .models import Personal,NOK
+from .models import Personal,NOK,Document
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -107,16 +107,15 @@ class NOKForm(forms.ModelForm):
         model = NOK
         fields = ['full_name','email','relationship','address']
 
-# class CategoryForm(forms.ModelForm):
-#     category = forms.CharField(label='Category name',max_length=30,required=True,widget=forms.TextInput(
-#         attrs={
-#             'class':'form-control text-uppercase',
-#             'placeholder':'Category name',
-#         }
-#     ))
-#     class Meta:
-#         model = Category
-#         fields = ['category']
+class DocumentForm(forms.ModelForm):
+    olevel1 = forms.ImageField(label='Upload first sitting olevel')
+    olevel2 = forms.ImageField(label='Upload second sitting olevel(if any)',required=False)
+    birth = forms.ImageField(label='Upload birth certificate')
+    lga = forms.ImageField(label='Upload LGA certificate')
+    jamb_result = forms.ImageField(label='Upload jamb result')
+    class Meta:
+        model = Document
+        fields = ['olevel1','olevel2','birth','lga','jamb_result']
 
 # class CommodityForm(forms.ModelForm):
 #     name = forms.CharField(label='Commdity name',max_length=255,required=True,widget=forms.TextInput(

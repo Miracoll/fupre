@@ -1,0 +1,96 @@
+{% extends 'application/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row my-4">
+    <div class="col-12 d-flex justify-content-center">
+        <!-- <h2>{{school}}</h2> -->
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <h4>ACCEPTANCE PAYMENT</h4>
+    </div>
+</div>
+{% comment %} <div class="row my-4">
+    <div class="col-sm-12">
+        <div class="d-flex post-entry d-flex justify-content-center">
+            <div class="custom-thumbnail">
+            <img src="{{user.profile.passport.url}}" alt="Image" class="img-fluid rounded-circle" width="150px" height="150px">
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+<div class="row d-flex justify-content-center my-4">
+    <div class="col-12">
+        {% if status %}
+        <div class="table-responsive-md">
+            <table class="table">
+                <tr>
+                    <th>Jamb Number</th>
+                    <td>{{ payment.applicant.jamb }}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Last Name</th>
+                    <td class="text-left">{{payment.applicant.last_name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">First Name</th>
+                    <td class="text-left">{{payment.applicant.first_name}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Email</th>
+                    <td class="text-left">{{payment.applicant.email}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">RRR</th>
+                    <td class="text-left">{{payment.rrr}}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">Date generated</th>
+                    <td class="text-left">{{payment.generated_on}}</td>
+                </tr>
+            </table>
+        </div>
+        {% else %}
+        <h3 class="text-danger"><i>Not admitted yet</i></h3>
+        {% endif %}
+    </div>
+</div>
+<div class="row d-flex justify-content-center my-4">
+    <div class="col-12">
+        <button class="btn btn-success d-print-none btn-block" onclick="makePayment()">Pay now</button>
+    </div>
+</div>
+{% endblock content %}
+{% block remita %}
+<script type="text/javascript" src="https://remitademo.net/payment/v1/remita-pay-inline.bundle.js"></script>
+<script>         
+    function makePayment() {
+        var form = document.querySelector("#payment-form");
+        var paymentEngine = RmPaymentEngine.init({
+            key: 'UzAwMDA1NDkxNzl8MTEwMDU1MTIwMzIxfDRhZjJjYTE1NzcxMjMyY2IzNWE2MzE2NmIxYWQyZjNhYzJjZTczNGU4MmZkYWZmOTk3MDkxYjg2NTZjNWUzMzFjYjE3NTRiZTBkMjc1YTgxMDhlNjhiMTQzYjA1ZjZiMjQ4NjQxZGM5NTU5NzA0ZjY2MjMwYWU5NTcyNmVlZTgz',
+            transactionId: '{{payment.rrr}}', // Replace with a reference you generated or remove the entire field for us to auto-generate a reference for you. Note that you will be able to check the status of this transaction using this transaction Id
+            customerId: '{{payment.applicant.email}}',
+            firstName: '{{payment.applicant.first_name}}',
+            lastName: '{{payment.applicant.last_name}}',
+            email: '{{payment.applicant.email}}',
+            amount: '{{payment.amount}}',
+            narration: '{{payment.payment.payment_type}}',
+            onSuccess: function (response) {
+                //console.log('callback Successful Response', response);
+                window.location = "{% url 'accept_success' payment.ref %}";
+            },
+            onError: function (response) {
+                //console.log('callback Error Response', response);
+                
+            },
+            onClose: function () {
+                //console.log("closed");
+            }
+        });
+        paymentEngine.showPaymentWidget();
+    }
+
+    window.onload = function () {
+        setDemoData();
+    };
+</script>
+{% endblock remita %}

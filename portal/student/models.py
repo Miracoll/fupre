@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.utils import timezone
 import uuid
@@ -22,6 +23,7 @@ class Student(models.Model):
     sex = models.CharField(max_length=10)
     dob = models.DateField()
     lock = models.BooleanField(default=False)
+    passport = models.ImageField(default='passport.jpg', upload_to='Student')
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
 

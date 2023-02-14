@@ -53,6 +53,9 @@ class Personal(models.Model):
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.applicant.jamb
+
 class Course(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     dept1 = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='applicat_first_choice')
@@ -60,6 +63,9 @@ class Course(models.Model):
     session = models.CharField(max_length=20)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.applicant.jamb
 
 class NOK(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -71,6 +77,9 @@ class NOK(models.Model):
     session = models.CharField(max_length=20,blank=True,null=True)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.applicant.jamb
 
 class Olevel(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -124,6 +133,9 @@ class Olevel(models.Model):
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.applicant.jamb
+
 class Admitted(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE)
@@ -131,12 +143,16 @@ class Admitted(models.Model):
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.applicant.jamb
+
 class Acceptance(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     rrr = models.CharField(max_length=20)
     payment = models.ForeignKey(Payment_setup, on_delete=models.CASCADE)
     category = models.CharField(max_length=100)
     status = models.BooleanField(default=False)
+    amount = models.IntegerField()
     order_id = models.CharField(max_length=1000)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -144,9 +160,23 @@ class Acceptance(models.Model):
     generated_on = models.DateTimeField(default=timezone.now)
     paid_on = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self) -> str:
+        return self.applicant.jamb
+
+class Document(models.Model):
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    olevel1 = models.ImageField(upload_to='Document')
+    olevel2 = models.ImageField(upload_to='Document',blank=True,null=True)
+    birth = models.ImageField(upload_to='Document')
+    lga = models.ImageField(upload_to='Document')
+    jamb_result = models.ImageField(upload_to='Document')
+
+    def __str__(self) -> str:
+        return self.applicant.jamb
+
 class Student(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    pesonal = models.ForeignKey(Personal, on_delete=models.CASCADE,blank=True,null=True)
+    personal = models.ForeignKey(Personal, on_delete=models.CASCADE,blank=True,null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE,blank=True,null=True)
     olevel = models.ForeignKey(Olevel, on_delete=models.CASCADE,blank=True,null=True)
     nok = models.ForeignKey(NOK, on_delete=models.CASCADE,blank=True,null=True)
@@ -157,3 +187,6 @@ class Student(models.Model):
     session = models.CharField(max_length=20)
     ref = models.UUIDField(default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self) -> str:
+        return self.applicant.jamb

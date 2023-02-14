@@ -1,3 +1,4 @@
+from email import message
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
@@ -10,12 +11,14 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
 from dashboard.decorators import allowed_users
-from .models import Applicant, Course, Personal,NOK,Olevel
+from .models import Admitted, Applicant, Course, Personal,NOK,Olevel, Acceptance
 from .models import Payment as AP
 from .models import Student as AS
-from .forms import Level1Form, NOKForm
+from .forms import Level1Form, NOKForm, DocumentForm
 from payment.models import Payment,Payment_setup
+from student.models import Student
 from utils import token_generator
 from configuration.models import Config, Department,User,Role,Session
 import secrets
@@ -24,6 +27,7 @@ import hashlib
 import requests
 from ast import literal_eval
 from datetime import datetime
+from random import randrange
 
 # Create your views here.
 
@@ -358,3 +362,192 @@ def reg_printout(request):
     student = AS.objects.get(applicant=applicant,session=session)
     context = {'student':student}
     return render(request,'application/printout.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def unlock_form(request):
+    session = Session.objects.get(active=True).session
+    if request.method == 'POST':
+        applicant = request.POST.get('applicant')
+        level = int(request.POST.get('level'))
+        
+        applicant = Applicant.objects.get(jamb=applicant)
+        AS.objects.filter(applicant=applicant,session=session).update(level=level)
+        messages.success(request,'unlock')
+        return redirect('unlock')
+    context = {}
+    return render(request,'application/unlock.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def get_admit(request):
+    session = Session.objects.get(active=True).session
+    if request.method == 'POST':
+        applicant = request.POST.get('applicant')
+        applicant = Applicant.objects.get(jamb=applicant)
+        if Admitted.objects.filter(applicant=applicant,session=session).exists() or AS.objects.filter(applicant=applicant,session=session,admitted=True).exists():
+            messages.error(request,'Student admitted already')
+            return redirect('get_admit')
+        return redirect('admission',applicant.ref)
+    context = {}
+    return render(request,'application/get_admit.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admit_applicant(request,pk):
+    session = Session.objects.get(active=True).session
+    applicant = Applicant.objects.get(ref=pk)
+    student = AS.objects.get(applicant=applicant,session=session)
+    if request.method == 'POST':
+        dept = request.POST.get('dept')
+        getdept = Department.objects.get(ref=dept)
+        Admitted.objects.create(applicant=applicant,session=session,dept=getdept)
+        AS.objects.filter(applicant=applicant,session=session).update(admitted=True)
+        messages.success(request, 'Admitted')
+        return redirect('admission',pk)
+    context = {'student':student}
+    return render(request,'application/admission.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['applicant'])
+def admission_status(request):
+    session = Session.objects.get(active=True).session
+    user = request.user
+    applicant = Applicant.objects.get(jamb=user.username)
+    student = AS.objects.get(applicant=applicant,session=session,admitted=True)
+    admit = Admitted.objects.get(applicant=applicant,session=session)
+    context = {'student':student,'admit':admit}
+    return render(request,'application/status.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['applicant'])
+def acceptace_fee(request):
+    session = Session.objects.get(active=True).session
+    user = request.user
+    applicant = Applicant.objects.get(jamb=user.username)
+    status = False
+    getpayment=''
+    if AS.objects.filter(applicant=applicant,session=session,admitted=True).exists() and Admitted.objects.filter(applicant=applicant,session=session).exists():
+        url = 'https://remitademo.net/remita/exapp/api/v1/send/api/echannelsvc/merchant/api/paymentinit'
+        orderid = secrets.token_hex(16)
+        student = Applicant.objects.get(jamb=user.username)
+        payment = Payment_setup.objects.get(category='acceptance')
+        if Acceptance.objects.filter(applicant=student,session=session,payment=payment,status=True).exists():
+            getpayment = Acceptance.objects.get(applicant=student,session=session,payment=payment).ref
+            return redirect('acceptance_receipt',getpayment)
+        
+        if not Acceptance.objects.filter(applicant=student,session=session,payment=payment).exists():
+            payload = json.dumps({
+                "serviceTypeId":'4430731',
+                "amount":f'{payment.amount}',
+                "orderId":f'{orderid}',
+                "payerName":f'{student.last_name} {student.first_name}',
+                "payerEmail":f'{student.email}',
+                "payerPhone":f'{student.mobile}',
+                "description":f'Payment for {payment.payment_type}'
+            })
+            input = '2547916' + '4430731' + str(orderid)+ str(payment.amount) + '1946'
+            hash = hashlib.sha512(str(input).encode("utf-8")).hexdigest()
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': f'remitaConsumerKey=2547916,remitaConsumerToken={hash}'
+            }
+            response = requests.request("POST", url, headers=headers, data=payload)
+            
+            if str(response.status_code) != '200':
+                messages.error(request, 'Unable to generate RRR, pls check back later')
+                return redirect('payment')
+            data = response.text[7:-1]
+            result = literal_eval(data)
+            Acceptance.objects.create(
+                applicant=student,rrr=result.get('RRR'),session=session,payment=payment,order_id=orderid,category=payment.category,
+                amount=payment.amount
+            )
+        getpayment = Acceptance.objects.get(
+            applicant=student,session=session,payment=payment
+        )
+        status = True
+    context = {'status':status,'payment':getpayment}
+    return render(request,'application/acceptance_fee.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['applicant'])
+def acceptance_success(request, reference):
+    session = Session.objects.get(active=True).session
+    now = datetime.now()
+    Acceptance.objects.filter(ref=reference).update(status=True,paid_on=now)
+    user = request.user
+    applicant = Applicant.objects.get(jamb=user.username)
+    payment = Acceptance.objects.get(applicant=applicant,session=session).ref
+    messages.success(request, 'Payment successful')
+    return redirect('acceptance_receipt',payment)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['applicant'])
+def acceptance_receipt(request,pk):
+    payment = Acceptance.objects.get(ref=pk)
+    context = {'payment':payment}
+    return render(request,'application/acceptance_receipt.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['applicant'])
+def upload_document(request):
+    session = Session.objects.get(active=True).session
+    user = request.user
+    applicant = Applicant.objects.get(jamb=user.username)
+    form = DocumentForm()
+    status = False
+    if AS.objects.filter(applicant=applicant,session=session,admitted=True).exists() and Admitted.objects.filter(applicant=applicant,session=session).exists() and Acceptance.objects.filter(applicant=applicant,session=session,status=True).exists():
+        if request.method == 'POST':
+            form = DocumentForm(request.POST, request.FILES)
+            if form.is_valid():
+                document = form.save(commit=False)
+                document.applicant = applicant
+                document.save()
+                messages.success(request, 'Saved')
+                return redirect('upload')
+        status = True
+    context = {'status':status,'form':form}
+    return render(request,'application/upload.html',context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['applicant'])
+def generate_reg(request):
+    session = Session.objects.get(active=True)
+    user = request.user
+    applicant = Applicant.objects.get(jamb=user.username)
+    student = AS.objects.get(applicant=applicant,session=session.session,admitted=True)
+    dept = Admitted.objects.get(applicant=applicant,session=session.session)
+    if request.method == 'POST':
+        rand = str(randrange(0,999,12)).zfill(3)
+        matric = f'{session.year}{dept.dept.code}{rand}'
+        while AS.objects.filter(registration_num=matric).exists():
+            rand = str(randrange(0,999,3)).zfill(3)
+            matric = f'{session.year}{dept.dept.code}{rand}'
+        AS.objects.filter(applicant=applicant,session=session.session,admitted=True).update(registration_num=matric,cleared=True)
+        user = User.objects.create_user(matric,student.personal.email,'student')
+        user.is_staff = True
+        user.is_superuser = False
+        user.last_name = student.personal.last_name
+        user.first_name = student.personal.first_name
+        role = Role.objects.get(keyword = 'student')
+        user.role = role
+        user.save()
+
+        stud = Student.objects.create(
+            jamb_number=student.personal.jamb,registration_num=matric,last_name=student.personal.last_name,first_name=student.personal.first_name,other_name=student.personal.other_name,
+            entry_mode='utme',level=100,entry_session=session.session,email=student.personal.email,mobile=student.personal.mobile,faculty=dept.dept.faculty,dept=dept.dept,active=1,sex=student.personal.gender,
+            dob=student.personal.dob,passport=student.personal.photo
+        )
+
+        # User.objects.filter(username = matric).update(image = 'passport.jpg')
+
+            
+        userid = User.objects.get(username=matric).id
+        getgroup = Group.objects.get(name='student')
+        getgroup.user_set.add(userid)
+
+        messages.success(request, 'matric number generated')
+        return redirect('reg_number')
+    context = {'student':student,'dept':dept}
+    return render(request,'application/reg_number.html',context)
